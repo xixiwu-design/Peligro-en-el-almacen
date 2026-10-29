@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PausaController : MonoBehaviour
 {
     
-    private void GuardarNivelEscena()
+    private void Awake()
     {
         string escenaActual = SceneManager.GetActiveScene().name;
 
