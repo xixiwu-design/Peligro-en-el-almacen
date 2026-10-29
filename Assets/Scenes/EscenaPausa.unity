@@ -1017,7 +1017,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Entrar en cooperativo '
+  m_text: Instrucciones
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2a91f79854d57cd42b0a4d0419600b54, type: 2}
   m_sharedMaterial: {fileID: -6555852617290988220, guid: 2a91f79854d57cd42b0a4d0419600b54, type: 2}
@@ -1154,7 +1154,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Abandonar el almac\xE9n"
+  m_text: Abandonar partida
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2a91f79854d57cd42b0a4d0419600b54, type: 2}
   m_sharedMaterial: {fileID: -6555852617290988220, guid: 2a91f79854d57cd42b0a4d0419600b54, type: 2}
@@ -1667,7 +1667,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Adentrarse en solitario
+  m_text: Reanudar partida
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2a91f79854d57cd42b0a4d0419600b54, type: 2}
   m_sharedMaterial: {fileID: -6555852617290988220, guid: 2a91f79854d57cd42b0a4d0419600b54, type: 2}
