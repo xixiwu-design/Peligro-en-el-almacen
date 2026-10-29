@@ -50,6 +50,12 @@ public class PausaController : MonoBehaviour
     {
         SceneManager.LoadScene("EscenaInstrucciones");
     }
+    //Al escena Sigiente nivel no es juego
+    public void AlSigienteNivel()
+    {
+        SceneManager.LoadScene("SigienteNivel");
+    }
+
 
     public void AlPausa()
     {
