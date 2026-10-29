@@ -5,6 +5,18 @@ using UnityEngine.SceneManagement;
 public class PausaController : MonoBehaviour
 {
     
+    private void GuardarNivelEscena()
+    {
+        string escenaActual = SceneManager.GetActiveScene().name;
+
+        // No guardar escenas que no sean niveles de juego
+        if (escenaActual == "1Jugador" ||
+            escenaActual == "2Jugadores")
+        {
+            PlayerPrefs.SetString("Escena", escenaActual);
+            PlayerPrefs.Save();
+        }
+    }
 
     public void PausarJuego()
     {
@@ -48,4 +60,11 @@ public class PausaController : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
     }
+
+    public void FalladoReintentar()
+    {
+        string Escena = PlayerPrefs.GetString("Escena");
+        SceneManager.LoadScene(Escena);
+    }
+
 }
