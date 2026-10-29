@@ -146,14 +146,14 @@ RectTransform:
   m_GameObject: {fileID: 177003828}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 19.314999, y: 10.91131, z: 1}
+  m_LocalScale: {x: 28.35978, y: 17.897495, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1086454697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 211.33124}
+  m_AnchoredPosition: {x: 0, y: 169}
   m_SizeDelta: {x: 48.5585, y: 41.5652}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &177003830
@@ -276,7 +276,7 @@ GameObject:
   - component: {fileID: 230642677}
   - component: {fileID: 230642676}
   m_Layer: 5
-  m_Name: SombraSalir
+  m_Name: SombraAbandonar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -291,14 +291,14 @@ RectTransform:
   m_GameObject: {fileID: 230642674}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 415946252}
+  m_Father: {fileID: 1086454697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.8, y: -52.5}
+  m_AnchoredPosition: {x: 428, y: -325}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &230642676
@@ -408,7 +408,7 @@ GameObject:
   - component: {fileID: 385669395}
   - component: {fileID: 385669394}
   m_Layer: 5
-  m_Name: Sombra1jugador
+  m_Name: SombraReanudar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -430,7 +430,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 11, y: -42}
+  m_AnchoredPosition: {x: -239, y: -249}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &385669394
@@ -540,7 +540,7 @@ GameObject:
   - component: {fileID: 389572755}
   - component: {fileID: 389572754}
   m_Layer: 5
-  m_Name: Sombra2jugador
+  m_Name: SombraInstruciones
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -555,14 +555,14 @@ RectTransform:
   m_GameObject: {fileID: 389572752}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1649895046}
+  m_Father: {fileID: 1086454697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.75, y: -40.9}
+  m_AnchoredPosition: {x: -239, y: -403.6}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &389572754
@@ -672,7 +672,7 @@ GameObject:
   - component: {fileID: 415946254}
   - component: {fileID: 415946253}
   m_Layer: 5
-  m_Name: 2jugadores
+  m_Name: Instruciones
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -691,12 +691,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 936432388}
-  - {fileID: 230642675}
   m_Father: {fileID: 1086454697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -189}
+  m_AnchoredPosition: {x: -250, y: -396}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &415946253
@@ -1334,7 +1333,9 @@ RectTransform:
   - {fileID: 177003829}
   - {fileID: 385669393}
   - {fileID: 1649895046}
+  - {fileID: 389572753}
   - {fileID: 415946252}
+  - {fileID: 230642675}
   - {fileID: 1162330889}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1356,7 +1357,7 @@ GameObject:
   - component: {fileID: 1162330891}
   - component: {fileID: 1162330890}
   m_Layer: 5
-  m_Name: salir
+  m_Name: Abandonar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1379,7 +1380,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -388}
+  m_AnchoredPosition: {x: 416.8, y: -314}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1162330890
@@ -1489,7 +1490,7 @@ GameObject:
   - component: {fileID: 1649895049}
   - component: {fileID: 1649895048}
   m_Layer: 5
-  m_Name: 1jugador
+  m_Name: Reanudar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1508,12 +1509,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1780766974}
-  - {fileID: 389572753}
   m_Father: {fileID: 1086454697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -33}
+  m_AnchoredPosition: {x: -250, y: -240}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1649895048
