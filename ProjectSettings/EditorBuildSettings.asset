@@ -32,5 +32,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SigienteNivel.unity
     guid: 0ce66e736f8685d40ad2d8d927c9a843
+  - enabled: 1
+    path: Assets/Scenes/EscenaPausa.unity
+    guid: 05225777f9e22654db6f168d0053cf71
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
