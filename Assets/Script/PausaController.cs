@@ -18,6 +18,7 @@ public class PausaController : MonoBehaviour
 
     public void ContinuarJuego()
     {
+        
         // Recuperar la escena anterior
         string escena = PlayerPrefs.GetString(
             "EscenaAnterior",
@@ -29,18 +30,19 @@ public class PausaController : MonoBehaviour
 
     public void ReiniciarJuego()
     {
-        string escena = PlayerPrefs.GetString(
-            "EscenaAnterior",
-            "1Jugador"
-        );
-
-        SceneManager.LoadScene(escena);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
- public void AlInstruccion()
+    public void AlInstruccion()
     {
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("EscenaInstrucciones");
     }
+
+    public void AlPausa()
+    {
+        SceneManager.LoadScene("EscenaPausa");
+    }
+
     public void AlMenu()
     {
         SceneManager.LoadScene("Menu");
