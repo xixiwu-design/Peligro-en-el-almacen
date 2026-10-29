@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class PausaController : MonoBehaviour
 {
+    
+
     public void PausarJuego()
     {
         // Guardar el nombre de la escena actual
@@ -12,20 +14,19 @@ public class PausaController : MonoBehaviour
             SceneManager.GetActiveScene().name
         );
 
-        // Ir a la escena de pausa
+        PlayerPrefs.Save();
+
         SceneManager.LoadScene("EscenaPausa");
     }
 
     public void ContinuarJuego()
     {
-        
-        // Recuperar la escena anterior
-        string escena = PlayerPrefs.GetString(
-            "EscenaAnterior",
-            "1Jugador"
-        );
+        string escena = PlayerPrefs.GetString("EscenaAnterior");
 
-        SceneManager.LoadScene(escena);
+        if (!string.IsNullOrEmpty(escena))
+        {
+            SceneManager.LoadScene(escena);
+        }
     }
 
     public void ReiniciarJuego()
