@@ -2634,7 +2634,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: 1c646d135c07c8545a034404b98f1ac2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 88.6
+      value: 86
       objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: 1c646d135c07c8545a034404b98f1ac2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2816,6 +2816,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f6f8d2b33bf06747bdcc1cf78441682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Jugador1Controller
+  velocidad: 40
+  rb: {fileID: 0}
 --- !u!54 &966404167
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2856,9 +2858,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JugadorColisionController
   idJugador: 1
-  velocidad: 40
-  rb: {fileID: 0}
+  distanciaSeguridad: 0.05
   jugadorCollider: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!135 &966404172
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3726,7 +3728,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: 0d3403a28006f904fbf74b4e4cd277e6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 118.5
+      value: 121.4
       objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: 0d3403a28006f904fbf74b4e4cd277e6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3734,7 +3736,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: 0d3403a28006f904fbf74b4e4cd277e6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.5
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: 0d3403a28006f904fbf74b4e4cd277e6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3877,7 +3879,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: 1c646d135c07c8545a034404b98f1ac2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 88.6
+      value: 87
       objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: 1c646d135c07c8545a034404b98f1ac2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4449,6 +4451,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df8603b57eb412d4b9769b89931acdd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Jugador2Controller
+  velocidad: 40
+  rb: {fileID: 0}
 --- !u!54 &1375779114
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4489,9 +4493,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JugadorColisionController
   idJugador: 2
-  velocidad: 40
-  rb: {fileID: 0}
+  distanciaSeguridad: 0.05
   jugadorCollider: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!135 &1375779119
 SphereCollider:
   m_ObjectHideFlags: 0
