@@ -1,130 +1,104 @@
 
 using UnityEngine;
+using System.Collections.Generic;
 
-[DefaultExecutionOrder(-100)]
 public class JugadorColisionController : MonoBehaviour
 {
     [Header("Configuración del jugador")]
     [SerializeField] private int idJugador = 1;
-    [SerializeField] private float velocidad = 40f;
+
+    [Header("Detección de otros jugadores")]
+    [SerializeField] private float distanciaSeguridad = 0.05f;
 
     [Header("Componentes")]
-    [SerializeField] private Rigidbody rb;
     [SerializeField] private Collider jugadorCollider;
+    [SerializeField] private Rigidbody rb;
 
-    private Vector3 direccionMovimiento;
     private CajaController cajaActual;
 
     public int IdJugador => idJugador;
 
-    public Vector3 Centro
-    {
-        get
-        {
-            return jugadorCollider.bounds.center;
-        }
-    }
+    public bool EstaEmpujandoCaja => cajaActual != null;
+
+    public Vector3 Centro => jugadorCollider.bounds.center;
 
     void Awake()
     {
-        if (rb == null)
-            rb = GetComponent<Rigidbody>();
-
         if (jugadorCollider == null)
             jugadorCollider = GetComponent<Collider>();
+
+        if (rb == null)
+            rb = GetComponent<Rigidbody>();
     }
 
-    public void EstablecerDireccion(Vector3 direccion)
+    public void PrepararFrame()
     {
-        direccionMovimiento = direccion.normalized;
+        CancelarEmpuje();
     }
 
-    void FixedUpdate()
+    public bool PuedeMoverEnDireccion(
+        Vector3 direccion,
+        float distancia)
     {
-        if (direccionMovimiento == Vector3.zero)
-        {
-            CancelarEmpuje();
-            return;
-        }
+        if (direccion == Vector3.zero)
+            return false;
 
-        float distancia = velocidad * Time.fixedDeltaTime;
-
-        // Detectar obstáculos delante del jugador
         Collider obstaculo = DetectarObstaculo(
-            direccionMovimiento,
+            direccion,
             distancia
         );
 
-        // Si no hay obstáculos, mover al jugador
         if (obstaculo == null)
-        {
-            CancelarEmpuje();
-            MoverJugador(distancia);
-            return;
-        }
+            return !DetectarOtroJugador(direccion, distancia);
 
-        // Comprobar si el obstáculo es una caja móvil
         CajaController caja =
             obstaculo.GetComponentInParent<CajaController>();
 
-        // Si no es una caja móvil, bloquear el movimiento
+        // Si no es una caja, bloquear el movimiento
         if (caja == null)
-        {
-            CancelarEmpuje();
-            return;
-        }
+            return false;
 
-        // Si hemos cambiado de caja, cancelar la solicitud anterior
         if (cajaActual != null && cajaActual != caja)
-        {
-            cajaActual.CancelarEmpuje(this);
-        }
+            return false;
 
         cajaActual = caja;
 
-        // Solicitar empujar la caja
-        caja.RegistrarEmpuje(this, direccionMovimiento);
+        caja.RegistrarEmpuje(this, direccion);
 
-        // Comprobar si tenemos permiso para empujarla
-        if (caja.PuedeEmpujar(this, direccionMovimiento))
-        {
-            MoverJugador(distancia);
-        }
-    }
-
-    private void MoverJugador(float distancia)
-    {
-        // Girar al jugador hacia la dirección del movimiento
-        Quaternion rotacion =
-            Quaternion.LookRotation(direccionMovimiento) *
-            Quaternion.Euler(0f, -90f, 0f);
-
-        rb.MoveRotation(rotacion);
-
-        // Mover al jugador
-        Vector3 desplazamiento =
-            direccionMovimiento * distancia;
-
-        rb.MovePosition(rb.position + desplazamiento);
+        // El jugador no se mueve por su cuenta.
+        // CajaController moverá al jugador junto con la caja.
+        return false;
     }
 
     private Collider DetectarObstaculo(
         Vector3 direccion,
         float distancia)
     {
-        Bounds limites = jugadorCollider.bounds;
+        SphereCollider esfera = jugadorCollider as SphereCollider;
 
-        RaycastHit[] impactos = Physics.BoxCastAll(
-            limites.center,
-            limites.extents * 0.95f,
-            direccion,
-            Quaternion.identity,
-            distancia + 0.03f,
+        if (esfera == null)
+            return null;
+
+        Vector3 centro =
+            esfera.transform.TransformPoint(esfera.center);
+
+        Vector3 escala = esfera.transform.lossyScale;
+
+        float radio = esfera.radius * Mathf.Max(
+            Mathf.Abs(escala.x),
+            Mathf.Abs(escala.y),
+            Mathf.Abs(escala.z)
+        );
+
+        RaycastHit[] impactos = Physics.SphereCastAll(
+            centro,
+            radio * 0.95f,
+            direccion.normalized,
+            distancia + 0.15f,
             ~0,
             QueryTriggerInteraction.Ignore
         );
 
-        // Ordenar los impactos por distancia
         System.Array.Sort(
             impactos,
             (a, b) => a.distance.CompareTo(b.distance)
@@ -134,17 +108,135 @@ public class JugadorColisionController : MonoBehaviour
         {
             Collider colision = impacto.collider;
 
-            // Ignorar los colliders del propio jugador
             if (colision.transform == transform ||
                 colision.transform.IsChildOf(transform))
-            {
                 continue;
-            }
 
             return colision;
         }
 
         return null;
+    }
+
+    private bool DetectarOtroJugador(
+        Vector3 direccion,
+        float distancia)
+    {
+        SphereCollider esfera = jugadorCollider as SphereCollider;
+
+        if (esfera == null)
+            return false;
+
+        Vector3 centro =
+            esfera.transform.TransformPoint(esfera.center);
+
+        Vector3 escala = esfera.transform.lossyScale;
+
+        float radio = esfera.radius * Mathf.Max(
+            Mathf.Abs(escala.x),
+            Mathf.Abs(escala.y),
+            Mathf.Abs(escala.z)
+        );
+
+        Vector3 siguientePosicion =
+            centro + direccion.normalized *
+            (distancia * 2f + distanciaSeguridad);
+
+        Collider[] impactos = Physics.OverlapSphere(
+            siguientePosicion,
+            radio,
+            ~0,
+            QueryTriggerInteraction.Ignore
+        );
+
+        foreach (Collider impacto in impactos)
+        {
+            JugadorColisionController otro =
+                impacto.GetComponentInParent<JugadorColisionController>();
+
+            if (otro != null && otro != this)
+                return true;
+        }
+
+        return false;
+    }
+
+    // Comprobar si el jugador puede acompañar el movimiento de la caja
+    public bool PuedeAcompanharCaja(
+        Vector3 desplazamiento,
+        CajaController caja,
+        List<JugadorColisionController> empujadores)
+    {
+        SphereCollider esfera = jugadorCollider as SphereCollider;
+
+        if (esfera == null)
+            return false;
+
+        float distancia = desplazamiento.magnitude;
+
+        if (distancia <= 0.0001f)
+            return true;
+
+        Vector3 centro =
+            esfera.transform.TransformPoint(esfera.center);
+
+        Vector3 escala = esfera.transform.lossyScale;
+
+        float radio = esfera.radius * Mathf.Max(
+            Mathf.Abs(escala.x),
+            Mathf.Abs(escala.y),
+            Mathf.Abs(escala.z)
+        );
+
+        RaycastHit[] impactos = Physics.SphereCastAll(
+            centro,
+            radio * 0.95f,
+            desplazamiento.normalized,
+            distancia + 0.02f,
+            ~0,
+            QueryTriggerInteraction.Ignore
+        );
+
+        foreach (RaycastHit impacto in impactos)
+        {
+            Collider colision = impacto.collider;
+
+            if (colision.transform == transform ||
+                colision.transform.IsChildOf(transform))
+                continue;
+
+            if (colision.transform == caja.transform ||
+                colision.transform.IsChildOf(caja.transform))
+                continue;
+
+            bool esEmpujador = false;
+
+            foreach (JugadorColisionController jugador in empujadores)
+            {
+                if (colision.transform == jugador.transform ||
+                    colision.transform.IsChildOf(jugador.transform))
+                {
+                    esEmpujador = true;
+                    break;
+                }
+            }
+
+            if (esEmpujador)
+                continue;
+
+            return false;
+        }
+
+        return true;
+    }
+
+    // Mover al jugador junto con la caja
+    public void MoverConCaja(Vector3 desplazamiento)
+    {
+        if (rb == null)
+            return;
+
+        rb.MovePosition(rb.position + desplazamiento);
     }
 
     private void CancelarEmpuje()

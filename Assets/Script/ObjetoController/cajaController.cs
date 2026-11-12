@@ -13,15 +13,14 @@ public class CajaController : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Collider cajaCollider;
 
-    // Tiempo máximo durante el que se considera válida una solicitud
     private const float TIEMPO_SOLICITUD = 0.15f;
 
-    // Información de cada jugador que intenta empujar
     private class SolicitudEmpuje
     {
         public JugadorColisionController jugador;
         public Vector3 direccion;
         public float tiempo;
+        public float tiempoFisico;
     }
 
     private Dictionary<int, SolicitudEmpuje> solicitudes =
@@ -35,35 +34,26 @@ public class CajaController : MonoBehaviour
         if (cajaCollider == null)
             cajaCollider = GetComponent<Collider>();
 
-        // Detectar automáticamente si es una caja doble
-        if (CompareTag("CajaMoviDoble"))
-        {
-            requiereDosJugadores = true;
-        }
-        else
-        {
-            requiereDosJugadores = false;
-        }
+        requiereDosJugadores = CompareTag("CajaMoviDoble");
     }
 
-    // Registrar que un jugador está intentando empujar
+    // Registrar la fuerza de un jugador
     public void RegistrarEmpuje(
-        JugadorColisionController jugador,
-        Vector3 direccion)
+     JugadorColisionController jugador,
+     Vector3 direccion)
     {
         if (jugador == null || direccion == Vector3.zero)
             return;
 
-        SolicitudEmpuje solicitud = new SolicitudEmpuje();
-
-        solicitud.jugador = jugador;
-        solicitud.direccion = direccion.normalized;
-        solicitud.tiempo = Time.time;
-
-        solicitudes[jugador.IdJugador] = solicitud;
+        solicitudes[jugador.IdJugador] = new SolicitudEmpuje
+        {
+            jugador = jugador,
+            direccion = direccion.normalized,
+            tiempo = Time.time,
+            tiempoFisico = Time.fixedTime
+        };
     }
-
-    // Cancelar la solicitud de un jugador
+    // Cancelar la solicitud
     public void CancelarEmpuje(
         JugadorColisionController jugador)
     {
@@ -73,17 +63,46 @@ public class CajaController : MonoBehaviour
         solicitudes.Remove(jugador.IdJugador);
     }
 
-    // Comprobar si un jugador puede empujar esta caja
+    // Comprobar si el jugador puede empujar
     public bool PuedeEmpujar(
         JugadorColisionController jugador,
         Vector3 direccion)
     {
-        List<SolicitudEmpuje> empujadores =
+        if (jugador == null)
+            return false;
+
+        LimpiarSolicitudes();
+
+        if (!solicitudes.ContainsKey(jugador.IdJugador))
+            return false;
+
+        // CAJA PEQUEÑA:
+        // Se permite combinar las fuerzas de diferentes jugadores.
+        if (!requiereDosJugadores)
+        {
+            List<SolicitudEmpuje> empujadores =
+                ObtenerTodosLosEmpujadores();
+
+            Vector3 fuerzaTotal = CalcularDireccionTotal(empujadores);
+
+            if (fuerzaTotal == Vector3.zero)
+                return false;
+
+            return DestinoLibre(
+                fuerzaTotal,
+                velocidad * Time.fixedDeltaTime + 0.03f,
+                empujadores
+            );
+        }
+
+        // CAJA GRANDE:
+        // Se necesitan dos jugadores en la misma dirección y lado.
+        List<SolicitudEmpuje> grupo =
             ObtenerEmpujadores(direccion);
 
         bool jugadorRegistrado = false;
 
-        foreach (SolicitudEmpuje solicitud in empujadores)
+        foreach (SolicitudEmpuje solicitud in grupo)
         {
             if (solicitud.jugador == jugador)
             {
@@ -92,55 +111,128 @@ public class CajaController : MonoBehaviour
             }
         }
 
-        if (!jugadorRegistrado)
+        if (!jugadorRegistrado || grupo.Count < 2)
             return false;
 
-        int necesarios = requiereDosJugadores ? 2 : 1;
-
-        if (empujadores.Count < necesarios)
-            return false;
-
-        // Comprobar que el destino está libre
         return DestinoLibre(
             direccion,
             velocidad * Time.fixedDeltaTime + 0.03f,
-            empujadores
+            grupo
         );
     }
 
+
     void FixedUpdate()
     {
-        // Obtener los jugadores que están empujando en la misma dirección
-        List<SolicitudEmpuje> empujadores =
-            ObtenerTodosLosEmpujadores();
+        List<SolicitudEmpuje> empujadores;
+        Vector3 direccion;
 
-        if (empujadores.Count == 0)
-            return;
+        if (requiereDosJugadores)
+        {
+            // CAJA GRANDE:
+            // Dos jugadores deben empujar en la misma dirección.
+            empujadores = ObtenerTodosLosEmpujadores();
 
-        Vector3 direccion = empujadores[0].direccion;
+            if (empujadores.Count == 0)
+                return;
 
-        int necesarios = requiereDosJugadores ? 2 : 1;
+            direccion = empujadores[0].direccion;
 
-        if (empujadores.Count < necesarios)
-            return;
+            empujadores = ObtenerEmpujadores(direccion);
 
-        // Para cajas dobles deben ser dos jugadores diferentes
-        // empujando desde el mismo lado y en la misma dirección.
-        if (requiereDosJugadores && empujadores.Count < 2)
-            return;
+            if (empujadores.Count < 2)
+                return;
+        }
+        else
+        {
+            // CAJA PEQUEÑA:
+            // Combinar las fuerzas de diferentes jugadores.
+            empujadores = ObtenerTodosLosEmpujadores();
+
+            if (empujadores.Count == 0)
+                return;
+
+            direccion = CalcularDireccionTotal(empujadores);
+
+            if (direccion == Vector3.zero)
+                return;
+        }
 
         float distancia = velocidad * Time.fixedDeltaTime;
 
-        if (!DestinoLibre(direccion, distancia + 0.03f, empujadores))
+        Vector3 desplazamiento =
+            direccion.normalized * distancia;
+
+        // Comprobar el destino de la caja
+        if (!DestinoLibre(
+            direccion,
+            distancia + 0.03f,
+            empujadores))
+        {
             return;
+        }
+
+        // Obtener los jugadores que participan
+        List<JugadorColisionController> jugadores =
+            new List<JugadorColisionController>();
+
+        foreach (SolicitudEmpuje solicitud in empujadores)
+        {
+            if (!jugadores.Contains(solicitud.jugador))
+                jugadores.Add(solicitud.jugador);
+        }
+
+        // Comprobar que todos pueden acompañar la caja
+        foreach (JugadorColisionController jugador in jugadores)
+        {
+            if (!jugador.PuedeAcompanharCaja(
+                desplazamiento,
+                this,
+                jugadores))
+            {
+                return;
+            }
+        }
 
         // Mover la caja
-        Vector3 desplazamiento = direccion * distancia;
-
         rb.MovePosition(rb.position + desplazamiento);
+
+        // Mover también a todos los jugadores
+        foreach (JugadorColisionController jugador in jugadores)
+        {
+            jugador.MoverConCaja(desplazamiento);
+        }
     }
 
-    // Obtener solicitudes válidas en una dirección concreta
+    // Obtener todos los jugadores con solicitudes válidas
+    private List<SolicitudEmpuje> ObtenerTodosLosEmpujadores()
+    {
+        List<SolicitudEmpuje> resultado =
+            new List<SolicitudEmpuje>();
+
+        LimpiarSolicitudes();
+
+        foreach (SolicitudEmpuje solicitud in solicitudes.Values)
+        {
+            if (solicitud.jugador == null)
+                continue;
+
+            // Cada jugador debe estar detrás de la caja
+            // respecto a su propia dirección.
+            if (!EstaEnElMismoLado(
+                solicitud,
+                solicitud.direccion))
+            {
+                continue;
+            }
+
+            resultado.Add(solicitud);
+        }
+
+        return resultado;
+    }
+
+    // Obtener jugadores que empujan en la misma dirección y desde el mismo lado
     private List<SolicitudEmpuje> ObtenerEmpujadores(
         Vector3 direccion)
     {
@@ -167,42 +259,21 @@ public class CajaController : MonoBehaviour
         return resultado;
     }
 
-    // Obtener todos los jugadores que están empujando
-    private List<SolicitudEmpuje> ObtenerTodosLosEmpujadores()
+    // Sumar las fuerzas de todos los jugadores
+    private Vector3 CalcularDireccionTotal(
+        List<SolicitudEmpuje> empujadores)
     {
-        List<SolicitudEmpuje> resultado =
-            new List<SolicitudEmpuje>();
+        Vector3 fuerzaTotal = Vector3.zero;
 
-        LimpiarSolicitudes();
-
-        if (solicitudes.Count == 0)
-            return resultado;
-
-        // Tomar la dirección de la primera solicitud
-        Vector3 direccion = Vector3.zero;
-
-        foreach (SolicitudEmpuje solicitud in solicitudes.Values)
+        foreach (SolicitudEmpuje solicitud in empujadores)
         {
-            direccion = solicitud.direccion;
-            break;
+            fuerzaTotal += solicitud.direccion;
         }
 
-        foreach (SolicitudEmpuje solicitud in solicitudes.Values)
-        {
-            if (Vector3.Dot(
-                solicitud.direccion,
-                direccion) < 0.98f)
-            {
-                continue;
-            }
+        if (fuerzaTotal.sqrMagnitude < 0.0001f)
+            return Vector3.zero;
 
-            if (!EstaEnElMismoLado(solicitud, direccion))
-                continue;
-
-            resultado.Add(solicitud);
-        }
-
-        return resultado;
+        return fuerzaTotal.normalized;
     }
 
     // Comprobar que el jugador está detrás de la caja
@@ -214,10 +285,11 @@ public class CajaController : MonoBehaviour
             solicitud.jugador.Centro -
             cajaCollider.bounds.center;
 
-        float producto =
-            Vector3.Dot(diferencia, direccion.normalized);
+        float producto = Vector3.Dot(
+            diferencia,
+            direccion.normalized
+        );
 
-        // El jugador debe estar detrás de la caja
         return producto < -0.05f;
     }
 
@@ -251,7 +323,7 @@ public class CajaController : MonoBehaviour
 
         RaycastHit[] impactos = Physics.BoxCastAll(
             limites.center,
-            limites.extents * 0.95f,
+            limites.extents,
             direccion.normalized,
             Quaternion.identity,
             distancia,
@@ -270,7 +342,7 @@ public class CajaController : MonoBehaviour
                 continue;
             }
 
-            // Ignorar a los jugadores que están empujando
+            // Ignorar los jugadores que están empujando
             bool esEmpujador = false;
 
             foreach (SolicitudEmpuje solicitud in empujadores)
@@ -287,7 +359,6 @@ public class CajaController : MonoBehaviour
             if (esEmpujador)
                 continue;
 
-            // Hay un obstáculo delante
             return false;
         }
 
