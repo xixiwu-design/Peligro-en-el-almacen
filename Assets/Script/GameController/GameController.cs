@@ -51,26 +51,38 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("SiguienteNivel: avanzando desde " + escena);
 
-        if (escena == "1 Jugador")
+        if (escena == "1Jugadores 1")
+            SceneManager.LoadScene("1Jugadores 2");
+
+        else if (escena == "1Jugadores 2")
+            SceneManager.LoadScene("1Jugadores 3");
+
+        else if (escena == "1Jugadores 3")
             SceneManager.LoadScene("Ganado");
 
-        else if (escena == "Solo2")
-            SceneManager.LoadScene("Solo3");
+        else if (escena == "2Jugadores 1")
+            SceneManager.LoadScene("2Jugadores 2");
 
-        else if (escena == "Solo3")
-            SceneManager.LoadScene("Ganado");
+        else if (escena == "2Jugadores 2")
+            SceneManager.LoadScene("2Jugadores 3");
 
-        else if (escena == "2 Nivel1")
-            SceneManager.LoadScene("Ganado");
-
-        else if (escena == "Doble2")
-            SceneManager.LoadScene("Doble3");
-
-        else if (escena == "Doble3")
+        else if (escena == "2Jugadores 3")
             SceneManager.LoadScene("Ganado");
         else
         {
             Debug.LogWarning("No hay una siguiente escena configurada para: " + escena);
         }
+    }
+
+    public void FalladoReintentar()
+    {
+        string escena = PlayerPrefs.GetString("Escena", string.Empty);
+        if (string.IsNullOrEmpty(escena))
+        {
+            Debug.LogWarning("No hay una escena guardada para reintentar.");
+            return;
+        }
+
+        SceneManager.LoadScene(escena);
     }
 }
