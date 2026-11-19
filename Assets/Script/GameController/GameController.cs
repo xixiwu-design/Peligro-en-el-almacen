@@ -58,8 +58,15 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("1Jugadores 3");
 
         else if (escena == "1Jugadores 3")
+            SceneManager.LoadScene("1Jugadores 4");
+
+        else if (escena == "1Jugadores 4")
+            SceneManager.LoadScene("1Jugadores 5");
+
+        else if (escena == "1Jugadores 5")
             SceneManager.LoadScene("Ganado");
 
+        //2 jugadores
         else if (escena == "2Jugadores 1")
             SceneManager.LoadScene("2Jugadores 2");
 
@@ -67,6 +74,12 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("2Jugadores 3");
 
         else if (escena == "2Jugadores 3")
+            SceneManager.LoadScene("2Jugadores 4");
+
+        else if (escena == "2Jugadores 4")
+            SceneManager.LoadScene("2Jugadores 5");
+
+        else if (escena == "2Jugadores 5")
             SceneManager.LoadScene("Ganado");
         else
         {
