@@ -4221,8 +4221,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD:Assets/Scenes/2Jugadores 1.unity
-=======
 --- !u!4 &1292778437 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -3910990755373119420, guid: 08d7adfe75b64d44796c727ca4210c9c, type: 3}
@@ -4365,7 +4363,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
->>>>>>> T25:Assets/Scenes/2 Nivel1.unity
 --- !u!1001 &1309382889
 PrefabInstance:
   m_ObjectHideFlags: 0
