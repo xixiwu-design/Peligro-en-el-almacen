@@ -26,14 +26,14 @@ public class GameManager : MonoBehaviour
     public void IniciarModoSolo()
     {
         DosJugadores = false;
-        SceneManager.LoadScene("Solo1");
+        SceneManager.LoadScene("1Jugadores 1");
     }
 
     // Inicia modo dole
     public void IniciarModoDoble()
     {
         DosJugadores = true;
-        SceneManager.LoadScene("Doble1");
+        SceneManager.LoadScene("2Jugadores 1");
     }
 
     // Cuando termina nivel ir al Sigiente Pagina

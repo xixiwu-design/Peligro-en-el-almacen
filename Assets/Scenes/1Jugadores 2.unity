@@ -4973,7 +4973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3364d949d86bdd540ab1fce898f325fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  DosJugadores: 1
+  DosJugadores: 0
 --- !u!114 &1291901752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4986,7 +4986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d379b84c2a7da74fa2e61986de7f52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VictoriaController
-  DosJugadores: 1
+  DosJugadores: 0
 --- !u!65 &1291901753
 BoxCollider:
   m_ObjectHideFlags: 0
