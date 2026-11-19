@@ -883,7 +883,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 4
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &564626917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -968,7 +968,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 4
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!1001 &640251840
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1275,6 +1275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d379b84c2a7da74fa2e61986de7f52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VictoriaController
+  DosJugadores: 0
 --- !u!1001 &966404164
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1377,6 +1378,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f6f8d2b33bf06747bdcc1cf78441682, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Jugador1Controller
+  velocidad: 40
+  rb: {fileID: 0}
 --- !u!54 &966404167
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1403,7 +1406,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 68
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &966404169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1417,9 +1420,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JugadorColisionController
   idJugador: 1
-  velocidad: 40
-  rb: {fileID: 0}
+  distanciaSeguridad: 0.15
   jugadorCollider: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!135 &966404172
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1925,6 +1928,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df8603b57eb412d4b9769b89931acdd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Jugador2Controller
+  velocidad: 40
+  rb: {fileID: 0}
 --- !u!54 &1375779114
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1951,7 +1956,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 68
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!114 &1375779116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1965,9 +1970,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JugadorColisionController
   idJugador: 2
-  velocidad: 40
-  rb: {fileID: 0}
+  distanciaSeguridad: 0.15
   jugadorCollider: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!135 &1375779119
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2217,6 +2222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d379b84c2a7da74fa2e61986de7f52f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VictoriaController
+  DosJugadores: 0
 --- !u!4 &1649642343
 Transform:
   m_ObjectHideFlags: 0
