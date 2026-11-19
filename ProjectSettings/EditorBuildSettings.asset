@@ -10,7 +10,7 @@ EditorBuildSettings:
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
     path: Assets/Scenes/Menu.unity
-    guid: 64c0f44671b2152418f2b69ab88d8f4a
+    guid: 3bbdaf1900476ef479aac20dba521bd5
   - enabled: 1
     path: Assets/Scenes/HistoriajugadorUno.unity
     guid: f7d8abec771718d4f800b3dbe0161238
@@ -23,9 +23,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/2Jugadores.unity
     guid: 26ff9426034a68946bbb0a529d72fe83
-  - enabled: 1
-    path: Assets/Scenes/Ganado.unity
-    guid: 2f03f67d1f22ee5428896b8ba3123474
   - enabled: 1
     path: Assets/Scenes/Fallado.unity
     guid: 7e59d42552f49e540bac64e4be69d254
@@ -44,5 +41,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EscenaInstrucciones.unity
     guid: 41a710e84b1f88048bb2912b6f506e58
+  - enabled: 1
+    path: Assets/Scenes/2 Nivel1.unity
+    guid: 46655be2d7d8d9a4590f5693d12911eb
+  - enabled: 1
+    path: Assets/Scenes/Ganado.unity
+    guid: 2f03f67d1f22ee5428896b8ba3123474
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

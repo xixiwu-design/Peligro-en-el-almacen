@@ -91,6 +91,11 @@ public class Jugador1Controller : MonoBehaviour
             );
         }
 
+        // Si está empujando una caja,
+        // la caja controla su movimiento.
+        if (colision.EstaEmpujandoCaja)
+            return;
+
         // Calcular la velocidad de cada eje
         float velocidadX = 0f;
         float velocidadZ = 0f;
