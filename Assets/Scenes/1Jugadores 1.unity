@@ -4980,6 +4980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestTiempo
   textoTiempo: {fileID: 1407738965}
+  tiempo: 30
 --- !u!114 &1407738965
 MonoBehaviour:
   m_ObjectHideFlags: 0

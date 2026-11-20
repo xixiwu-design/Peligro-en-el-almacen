@@ -45,6 +45,9 @@ EditorBuildSettings:
     path: Assets/Scenes/2Jugadores 4.unity
     guid: 3a86e3caeec6c4a449a21c644e76f46e
   - enabled: 1
+    path: Assets/Scenes/1Jugadores 4.unity
+    guid: 5be8217affd252c44aaba6706185a6ba
+  - enabled: 1
     path: Assets/Scenes/EscenaPausa.unity
     guid: 05225777f9e22654db6f168d0053cf71
   - enabled: 1
