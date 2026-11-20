@@ -41,7 +41,20 @@ public class GameManager : MonoBehaviour
     {
         escenaNivelCompletado = SceneManager.GetActiveScene().name;
         Debug.Log("Nivel completado: " + escenaNivelCompletado);
-        SceneManager.LoadScene("SigienteNivel");
+
+        if (escenaNivelCompletado == "1Jugadores 5")
+        {
+            SceneManager.LoadScene("Ganado");
+        }
+        else if (escenaNivelCompletado == "2Jugadores 5")
+        {
+            SceneManager.LoadScene("Ganado");
+        }
+        else
+        {
+            SceneManager.LoadScene("SigienteNivel");
+        }
+
     }
 
     // 
@@ -63,8 +76,6 @@ public class GameManager : MonoBehaviour
         else if (escena == "1Jugadores 4")
             SceneManager.LoadScene("1Jugadores 5");
 
-        else if (escena == "1Jugadores 5")
-            SceneManager.LoadScene("Ganado");
 
         //2 jugadores
         else if (escena == "2Jugadores 1")
@@ -79,8 +90,6 @@ public class GameManager : MonoBehaviour
         else if (escena == "2Jugadores 4")
             SceneManager.LoadScene("2Jugadores 5");
 
-        else if (escena == "2Jugadores 5")
-            SceneManager.LoadScene("Ganado");
         else
         {
             Debug.LogWarning("No hay una siguiente escena configurada para: " + escena);
