@@ -91,6 +91,12 @@ public class Jugador2Controller : MonoBehaviour
             );
         }
 
+        Quaternion rotacion =
+            Quaternion.LookRotation(direccionMovimiento) *
+            Quaternion.Euler(0f, -90f, 0f);
+
+        rb.MoveRotation(rotacion);
+
         // Si está empujando una caja,
         // la caja controla su movimiento.
         if (colision.EstaEmpujandoCaja)
@@ -129,12 +135,6 @@ public class Jugador2Controller : MonoBehaviour
             0f,
             velocidadZ
         ) * distancia;
-
-        Quaternion rotacion =
-            Quaternion.LookRotation(direccionMovimiento) *
-            Quaternion.Euler(0f, -90f, 0f);
-
-        rb.MoveRotation(rotacion);
 
         if (desplazamiento != Vector3.zero)
         {

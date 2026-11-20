@@ -91,6 +91,13 @@ public class Jugador1Controller : MonoBehaviour
             );
         }
 
+        // Girar según la dirección de entrada, incluso al empujar una caja.
+        Quaternion rotacion =
+            Quaternion.LookRotation(direccionMovimiento) *
+            Quaternion.Euler(0f, -90f, 0f);
+
+        rb.MoveRotation(rotacion);
+
         // Si está empujando una caja,
         // la caja controla su movimiento.
         if (colision.EstaEmpujandoCaja)
@@ -130,13 +137,6 @@ public class Jugador1Controller : MonoBehaviour
             0f,
             velocidadZ
         ) * distancia;
-
-        // Girar según la dirección original de entrada
-        Quaternion rotacion =
-            Quaternion.LookRotation(direccionMovimiento) *
-            Quaternion.Euler(0f, -90f, 0f);
-
-        rb.MoveRotation(rotacion);
 
         // Aplicar el movimiento
         if (desplazamiento != Vector3.zero)

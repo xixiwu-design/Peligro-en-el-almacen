@@ -58,6 +58,9 @@ public class JugadorColisionController : MonoBehaviour
         if (caja == null)
             return false;
 
+        if (!EstaCentradoFrenteALaCaja(obstaculo, direccion))
+            return false;
+
         if (cajaActual != null && cajaActual != caja)
             return false;
 
@@ -68,6 +71,41 @@ public class JugadorColisionController : MonoBehaviour
         // El jugador no se mueve por su cuenta.
         // CajaController moverá al jugador junto con la caja.
         return false;
+    }
+
+// Comprobar si el jugador está centrado frente a la caja (no se permite empujar desde un ángulo)
+    private bool EstaCentradoFrenteALaCaja(
+        Collider cajaCollider,
+        Vector3 direccion)
+    {
+        Vector3 lateral = new Vector3(
+            -direccion.normalized.z,
+            0f,
+            direccion.normalized.x
+        );
+
+        Bounds cajaBounds = cajaCollider.bounds;
+        Bounds jugadorBounds = jugadorCollider.bounds;
+
+        float semianchoCaja =
+            Mathf.Abs(lateral.x) * cajaBounds.extents.x +
+            Mathf.Abs(lateral.z) * cajaBounds.extents.z;
+
+        float semianchoJugador =
+            Mathf.Abs(lateral.x) * jugadorBounds.extents.x +
+            Mathf.Abs(lateral.z) * jugadorBounds.extents.z;
+
+        float limiteLateral = Mathf.Max(
+            0f,
+            semianchoCaja - semianchoJugador * 0.5f
+        );
+
+        float desviacionLateral = Mathf.Abs(Vector3.Dot(
+            jugadorBounds.center - cajaBounds.center,
+            lateral
+        ));
+
+        return desviacionLateral <= limiteLateral;
     }
 
     private Collider DetectarObstaculo(
