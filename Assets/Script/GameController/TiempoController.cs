@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class TestTiempo : MonoBehaviour
 {
     public TMP_Text textoTiempo;
-    private float tiempo = 100f;
+    [Header("Tiempo de Partida")]
+    [SerializeField] private float tiempo = 30f;
 
     void Update()
     {
