@@ -14,6 +14,7 @@ public class JugadorColisionController : MonoBehaviour
     [SerializeField] private Collider jugadorCollider;
     [SerializeField] private Rigidbody rb;
 
+
     private CajaController cajaActual;
 
     public int IdJugador => idJugador;
@@ -58,7 +59,8 @@ public class JugadorColisionController : MonoBehaviour
         if (caja == null)
             return false;
 
-        if (!EstaCentradoFrenteALaCaja(obstaculo, direccion))
+        if (!caja.CompareTag("CajaMoviDoble") &&
+            !EstaCentradoFrenteALaCaja(obstaculo, direccion))
             return false;
 
         if (cajaActual != null && cajaActual != caja)

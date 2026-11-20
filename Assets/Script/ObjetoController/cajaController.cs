@@ -26,6 +26,8 @@ public class CajaController : MonoBehaviour
     private Dictionary<int, SolicitudEmpuje> solicitudes =
         new Dictionary<int, SolicitudEmpuje>();
 
+    
+
     void Awake()
     {
         if (rb == null)
