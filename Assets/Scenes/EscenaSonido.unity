@@ -1738,9 +1738,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: Jugador1Historia
+      - m_Target: {fileID: 484498756}
+        m_TargetAssemblyTypeName: PausaController, Assembly-CSharp
+        m_MethodName: AlPausa
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -7,6 +7,7 @@ public class PausaController : MonoBehaviour
 {
     private const string EscenaPausa = "EscenaPausa";
     private const string EscenaInstrucciones = "EscenaInstrucciones";
+    private const string EscenaSonido = "EscenaSonido";
 
     // Variables para controlar el estado de pausa y las escenas involucradas
     private static readonly List<EventSystem> sistemasEventoJuego =
@@ -97,6 +98,13 @@ public class PausaController : MonoBehaviour
         else
             SceneManager.LoadScene(EscenaInstrucciones);
     }
+    public void AlSonido()
+    {
+        if (pausaActiva)
+            CambiarOverlay(EscenaSonido);
+        else
+            SceneManager.LoadScene(EscenaSonido);
+    }
 
     public void AlSigienteNivel()
     {
@@ -120,56 +128,56 @@ public class PausaController : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
-    
-private static void CambiarOverlay(string nombreEscena)
-{
-    Scene overlayAnterior =
-        SceneManager.GetSceneByName(escenaOverlayActual);
 
-    if (!overlayAnterior.IsValid() || !overlayAnterior.isLoaded)
+    private static void CambiarOverlay(string nombreEscena)
     {
-        CargarOverlay(nombreEscena);
-        return;
-    }
+        Scene overlayAnterior =
+            SceneManager.GetSceneByName(escenaOverlayActual);
 
-    // Primero cargar la nueva pantalla
-    AsyncOperation carga =
-        SceneManager.LoadSceneAsync(nombreEscena, LoadSceneMode.Additive);
-
-    if (carga == null)
-    {
-        Debug.LogError("No se pudo cargar la nueva pantalla.");
-        return;
-    }
-
-    carga.completed += _ =>
-    {
-        Scene nuevoOverlay =
-            SceneManager.GetSceneByName(nombreEscena);
-
-        if (!nuevoOverlay.IsValid() || !nuevoOverlay.isLoaded)
+        if (!overlayAnterior.IsValid() || !overlayAnterior.isLoaded)
         {
-            Debug.LogError("La nueva pantalla no se cargó correctamente.");
+            CargarOverlay(nombreEscena);
             return;
         }
 
-        // Descargar la pantalla anterior
-        AsyncOperation descarga =
-            SceneManager.UnloadSceneAsync(overlayAnterior);
+        // Primero cargar la nueva pantalla
+        AsyncOperation carga =
+            SceneManager.LoadSceneAsync(nombreEscena, LoadSceneMode.Additive);
 
-        if (descarga == null)
+        if (carga == null)
         {
-            Debug.LogError("No se pudo cerrar la pantalla anterior.");
+            Debug.LogError("No se pudo cargar la nueva pantalla.");
             return;
         }
 
-        descarga.completed += _ =>
+        carga.completed += _ =>
         {
-            escenaOverlayActual = nombreEscena;
-            SceneManager.SetActiveScene(nuevoOverlay);
+            Scene nuevoOverlay =
+                SceneManager.GetSceneByName(nombreEscena);
+
+            if (!nuevoOverlay.IsValid() || !nuevoOverlay.isLoaded)
+            {
+                Debug.LogError("La nueva pantalla no se cargó correctamente.");
+                return;
+            }
+
+            // Descargar la pantalla anterior
+            AsyncOperation descarga =
+                SceneManager.UnloadSceneAsync(overlayAnterior);
+
+            if (descarga == null)
+            {
+                Debug.LogError("No se pudo cerrar la pantalla anterior.");
+                return;
+            }
+
+            descarga.completed += _ =>
+            {
+                escenaOverlayActual = nombreEscena;
+                SceneManager.SetActiveScene(nuevoOverlay);
+            };
         };
-    };
-}
+    }
 
     private static void CargarOverlay(string nombreEscena)
     {
