@@ -617,7 +617,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 484498756}
         m_TargetAssemblyTypeName: PausaController, Assembly-CSharp
-        m_MethodName: ContinuarJuego
+        m_MethodName: AlSonido
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
