@@ -17,14 +17,7 @@ public static void Menu()
     {
         SceneManager.LoadScene("Menu");
     }
-  public static void Jugador1()
-    {
-        SceneManager.LoadScene("1Jugador");
-    }
-    public static void Jugador2()
-    {
-        SceneManager.LoadScene("2Jugadores");
-    }
+ 
 
     public static void SalirAplicacion()
     {

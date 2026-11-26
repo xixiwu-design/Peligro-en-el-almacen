@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 265874422}
   - component: {fileID: 265874421}
   m_Layer: 0
-  m_Name: PausaController
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -249,9 +249,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 265874420}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbb1799479a720b4d8788d18f798bc1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 3364d949d86bdd540ab1fce898f325fa, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PausaController
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  DosJugadores: 0
 --- !u!4 &265874422
 Transform:
   m_ObjectHideFlags: 0
@@ -858,7 +859,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 265874421}
-        m_TargetAssemblyTypeName: PausaController, Assembly-CSharp
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: FalladoReintentar
         m_Mode: 1
         m_Arguments:

@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class TestTiempo : MonoBehaviour
 {
     public TMP_Text textoTiempo;
-    private float tiempo = 5f;
+    [Header("Tiempo de Partida")]
+    [SerializeField] private float tiempo = 30f;
 
     void Update()
     {
@@ -27,6 +28,8 @@ public class TestTiempo : MonoBehaviour
 
         if (tiempo <= 0)
         {
+            PlayerPrefs.SetString("Escena", SceneManager.GetActiveScene().name);
+            PlayerPrefs.Save();
             SceneManager.LoadScene("Fallado");
         }
     }

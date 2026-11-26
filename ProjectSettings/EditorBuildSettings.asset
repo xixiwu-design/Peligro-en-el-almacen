@@ -10,7 +10,7 @@ EditorBuildSettings:
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
     path: Assets/Scenes/Menu.unity
-    guid: 64c0f44671b2152418f2b69ab88d8f4a
+    guid: 3bbdaf1900476ef479aac20dba521bd5
   - enabled: 1
     path: Assets/Scenes/HistoriajugadorUno.unity
     guid: f7d8abec771718d4f800b3dbe0161238
@@ -24,9 +24,6 @@ EditorBuildSettings:
     path: Assets/Scenes/2Jugadores.unity
     guid: 26ff9426034a68946bbb0a529d72fe83
   - enabled: 1
-    path: Assets/Scenes/Ganado.unity
-    guid: 2f03f67d1f22ee5428896b8ba3123474
-  - enabled: 1
     path: Assets/Scenes/Fallado.unity
     guid: 7e59d42552f49e540bac64e4be69d254
   - enabled: 1
@@ -39,10 +36,52 @@ EditorBuildSettings:
     path: Assets/Scenes/EscenaInstrucciones.unity
     guid: 41a710e84b1f88048bb2912b6f506e58
   - enabled: 1
+    path: Assets/Scenes/1Jugadores 3.unity
+    guid: 94645c06789f74b409eea23d456f9605
+  - enabled: 1
+    path: Assets/Scenes/2Jugadores 3.unity
+    guid: 9aa6b61b89cc600449a58f921d52a231
+  - enabled: 1
+    path: Assets/Scenes/2Jugadores 4.unity
+    guid: 3a86e3caeec6c4a449a21c644e76f46e
+  - enabled: 1
+    path: Assets/Scenes/1Jugadores 4.unity
+    guid: 5be8217affd252c44aaba6706185a6ba
+  - enabled: 1
     path: Assets/Scenes/EscenaPausa.unity
     guid: 05225777f9e22654db6f168d0053cf71
   - enabled: 1
     path: Assets/Scenes/EscenaInstrucciones.unity
     guid: 41a710e84b1f88048bb2912b6f506e58
+  - enabled: 1
+    path: Assets/Scenes/2Jugadores 1.unity
+    guid: 46655be2d7d8d9a4590f5693d12911eb
+  - enabled: 1
+    path: Assets/Scenes/1Jugadores 1.unity
+    guid: fba79c1f00d55134b8b6801f5c86f7c4
+  - enabled: 1
+    path: Assets/Scenes/1Jugadores 2.unity
+    guid: 8da4e25c767c9cc48bc4332b5e37e4d4
+  - enabled: 1
+    path: Assets/Scenes/2Jugadores 2.unity
+    guid: 8fb99ac98c434824890895dab6ab8613
+  - enabled: 1
+    path: Assets/Scenes/Ganado.unity
+    guid: 2f03f67d1f22ee5428896b8ba3123474
+  - enabled: 1
+    path: Assets/Scenes/1Jugadores 5.unity
+    guid: 324495c77f065134bb18d3f68c484878
+  - enabled: 1
+    path: Assets/Scenes/1Jugadores 1.unity
+    guid: fba79c1f00d55134b8b6801f5c86f7c4
+  - enabled: 1
+    path: Assets/Scenes/1Jugadores 2.unity
+    guid: 8da4e25c767c9cc48bc4332b5e37e4d4
+  - enabled: 1
+    path: Assets/Scenes/2Jugadores 2.unity
+    guid: 8fb99ac98c434824890895dab6ab8613
+  - enabled: 1
+    path: Assets/Scenes/2Jugadores 5.unity
+    guid: 9e233b13eac120944a863f969550bd07
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
